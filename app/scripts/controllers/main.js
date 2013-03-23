@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('githubleagueClientApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, League) {
     $scope.leaderBoard = [
       'Mark',
       'Gavin',
       'John'
     ];
-    $scope.leader = $scope.leaderBoard[0]
+    $scope.league = League.query();
+    // console.log($scope.league);
   });

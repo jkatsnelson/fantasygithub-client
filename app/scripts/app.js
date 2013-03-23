@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('githubleagueClientApp', [])
+angular.module('githubleagueClientApp', ['mongolab'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -8,7 +8,11 @@ angular.module('githubleagueClientApp', [])
         controller: 'MainCtrl'
       })
       .when('/teams', {
-        templateUrl: 'views/teams.html',
+        templateUrl: 'views/teams-index.html',
+        controller: 'TeamsCtrl'
+      })
+      .when('/team', {
+        templateUrl: 'views/team-show.html',
         controller: 'TeamCtrl'
       })
       .otherwise({
