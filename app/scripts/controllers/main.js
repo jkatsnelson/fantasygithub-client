@@ -7,6 +7,12 @@ angular.module('githubleagueClientApp')
       'Gavin',
       'John'
     ];
-    $scope.league = League.query();
-    // console.log($scope.league);
+    // window.league = League.query();
+    League.query(function(league) {
+      $scope.league = league;
+      console.log('inside', league[0].name);
+    });
+
+
+    // $scope.firstPlaceName = $scope.league;
   });

@@ -1,8 +1,14 @@
 <div class="hero-unit">
-  <h1>Current Team</h1>
+  <h1>Top Teams</h1>
   <ul>
-      <li ng-repeat="team in Teams">
-          <a href="#/team">{{team}}</a>
+      <li ng-repeat="team in teams">
+          <a href="#/teams/{{team.name}}">{{team.name}}</a>
+          <br>
+          <div ng-repeat="player in team.players">
+            <a href="#/players/{{player.id}}">
+              {{player.first}} {{player.last}}
+            </a>
+          </div>
       </li>
   </ul>
 </div>

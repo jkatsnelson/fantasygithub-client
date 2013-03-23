@@ -11,9 +11,13 @@ angular.module('githubleagueClientApp', ['mongolab'])
         templateUrl: 'views/teams-index.html',
         controller: 'TeamsCtrl'
       })
-      .when('/team', {
+      .when('/teams/:teamName', {
         templateUrl: 'views/team-show.html',
         controller: 'TeamCtrl'
+      })
+      .when('/players/:playerId', {
+        templateUrl: 'views/player-show.html',
+        controller: 'PlayerCtrl'
       })
       .otherwise({
         redirectTo: '/'
