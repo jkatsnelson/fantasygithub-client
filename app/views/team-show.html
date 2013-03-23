@@ -3,7 +3,7 @@
   <div>
     <ul>
       <li ng-repeat="player in players">
-        {{player}}
+        <a href="#/players/{{player.id}}">{{player.first}} {{player.last}}</a>
       </li>
     </ul>
   </div>
