@@ -26,16 +26,12 @@ angular.module('githubleagueClientApp')
               map.selectAll('path').data(collection.features).enter()
                   .append('path')
                   .attr('d', path)
+                  .attr('fill', "gray")
                   .attr("width", width)
                   .attr("height", width/2);
           });
         }
         draw($("#mapContainer").width()/2);
-
-
-
-
-
 
 
       }
