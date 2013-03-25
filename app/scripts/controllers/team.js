@@ -13,6 +13,11 @@ angular.module('githubleagueClientApp')
         'id': '2343',
         'first': 'mike',
         'last': 'ronson'
+      },
+      { 
+        'id': '8',
+        'first': 'bobby',
+        'last': 'strings'
       }
     ];
   });
