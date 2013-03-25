@@ -8,7 +8,7 @@ angular.module('githubleagueClientApp')
       'John'
     ];
     // window.league = League.query();
-    League.query(function(league) {
+    League.query(function (league) {
       $scope.league = league;
       console.log('inside', league[0].name);
     });
