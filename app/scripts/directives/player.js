@@ -41,7 +41,7 @@ angular.module('githubleagueClientApp')
           max_amount = d3.max(this.data, function(d) {
             return parseInt(d.total_amount);
           });
-          this.radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 85]);
+          this.radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 35]);
           this.create_nodes();
           this.create_vis();
           console.log('in');
@@ -91,11 +91,40 @@ angular.module('githubleagueClientApp')
 
 
 
+        bubbleChart.prototype.charge = function(d) {
+          return -Math.pow(d.radius, 2.0) / 8;
+        };
+
+        bubbleChart.prototype.start = function() {
+          return this.force = d3.layout.force().nodes(this.nodes).size([this.width, this.height]);
+        };
+
+        bubbleChart.prototype.display_group_all = function() {
+          var that = this;
+          this.force.gravity(this.layout_gravity).charge(this.charge).friction(0.9).on("tick", function(e) {
+            return that.circles.each(that.move_towards_center(e.alpha)).attr("cx", function(d) {
+              return d.x;
+            }).attr("cy", function(d) {
+              return d.y;
+            });
+          });
+          this.force.start();
+          // return this.hide_years();
+        };
+
+        bubbleChart.prototype.move_towards_center = function(alpha) {
+          var that = this;
+          return function(d) {
+            d.x = d.x + (that.center.x - d.x) * (that.damper + 0.02) * alpha;
+            return d.y = d.y + (that.center.y - d.y) * (that.damper + 0.02) * alpha;
+          };
+        };
 
         var renderChart = function(csv) {
-          console.log(csv);
-          window.chart = new bubbleChart(csv);
-          return window.chart;
+          // console.log(csv);
+          var chart = new bubbleChart(csv);
+          chart.start();
+          return chart.display_group_all();
         }
 
         d3.csv("../geodata/fakeuser.csv", renderChart)
