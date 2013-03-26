@@ -3,12 +3,47 @@
 angular.module('githubleagueClientApp')
   .directive('player', function () {
     return {
-      template: '<div class="playerChart"></div>',
+      template: '<div class="playerChart">'
+                  + '<button class="showGroup">grouping</button>'
+                  + '<button class="showSeparate">separate</button>'
+                + '</div>',
       restrict: 'E',
       link: function postLink(scope, element, attrs) {
 
+        var bc;
+
+        $('.playerChart').on('click', function(event) {
+          var viewType = event.target.className;
+          if (viewType === 'showGroup') {
+            var renderChart = function(csv) {
+              // bc = null;
+              // bc = new bubbleChart(csv);
+              // bc.start();
+              bc.display_group_all();
+              // bc.displayByAttribute();
+              return bc;
+            };
+            d3.csv("../geodata/fakeuser.csv", renderChart)
+          }
+          if (viewType === 'showSeparate') {
+            console.log(bc);
+            // bc = null;
+            var renderChart = function(csv) {
+              // bc = null;
+              // bc = new bubbleChart(csv);
+              // bc.start();
+              // bc.display_group_all();
+              bc.displayByAttribute();
+              return bc;
+            };
+            d3.csv("../geodata/fakeuser.csv", renderChart)
+          }
+        });
+
+
         function bubbleChart(data) {
           var max_amount;
+          // this.showType = pageShowType;
           this.data = data;
           // console.log(data);
           this.width = $(".hero-unit").width();
@@ -131,23 +166,32 @@ angular.module('githubleagueClientApp')
           this.force.start();
         };
 
-        // bubbleChart.prototype.moveTowardsAttribute = function(alpha) {
-        //   var that = this;
-        //   return function(d) {
-        //     var pointOnScreen;
-        //     pointOnScreen = that.attributeCenters[d.year];
-        //     d.x += (pointOnScreen.x - )
-        //   };
-        // };
+        bubbleChart.prototype.moveTowardsAttribute = function(alpha) {
+          var that = this;
+          return function(d) {
+            var attributeCenterOnScreen;
+            attributeCenterOnScreen = that.attributeCenters[d.year];
+            d.x += (attributeCenterOnScreen.x - d.x) * (that.damper + 0.02) * alpha;
+            return d.y += (attributeCenterOnScreen.y - d.y) * (that.damper + 0.02) * alpha;
+          };
+        };
+
+          // chart.start();
+          // if (chart.showType === 'group') {
+          //   return chart.display_group_all();
+          // } else if (chart.showType === 'separate') {
+          //   return chart.displayByAttribute()
+          // }
 
         var renderChart = function(csv) {
-          // console.log(csv);
-          var chart = new bubbleChart(csv);
-          chart.start();
-          return chart.display_group_all();
-        }
-
+          bc = new bubbleChart(csv);
+          bc.start();
+          bc.display_group_all();
+          // bc.displayByAttribute();
+          return bc;
+        };
         d3.csv("../geodata/fakeuser.csv", renderChart)
+
 
       }
     };
