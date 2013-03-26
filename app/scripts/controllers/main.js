@@ -3,16 +3,10 @@
 angular.module('githubleagueClientApp')
   .controller('MainCtrl', function ($scope, League) {
     $scope.leaderBoard = [
-      'Mark',
-      'Gavin',
-      'John'
+      'jQuery',
+      'Javascript',
+      'Bootstrap'
     ];
     // window.league = League.query();
-    League.query(function (league) {
-      $scope.league = league;
-      console.log('inside', league[0].name);
-    });
-
-
-    // $scope.firstPlaceName = $scope.league;
+    $scope.data = [12,44,78];
   });
