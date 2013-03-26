@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('githubleagueClientApp')
-  .controller('TeamCtrl', function ($scope, $routeParams) {
-    $scope.teamName = $routeParams.teamName;
-    $scope.players = [
+  .controller('PersonSearchCtrl', function ($scope, $routeParams) {
+    // $scope.teamName = $routeParams.teamName;
+    $scope.people = [
       {
         'id': '123',
         'first': 'jim',
@@ -20,4 +20,8 @@ angular.module('githubleagueClientApp')
         'last': 'strings'
       }
     ];
+
+    $scope.searchForUser = function() {
+      console.log('will search now');
+    }
   });

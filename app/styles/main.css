@@ -1,6 +1,6 @@
 /* Will be compiled down to a single stylesheet with your sass files */
 html, body {
-  background-color: gray;
+  background-color: #FFF;
 }
 
 .chart {

@@ -7,17 +7,17 @@ angular.module('githubleagueClientApp', ['mongolab'])
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/teams', {
-        templateUrl: 'views/teams-index.html',
-        controller: 'TeamsCtrl'
+      .when('/repos', {
+        templateUrl: 'views/repos-index.html',
+        controller: 'ReposIndexCtrl'
       })
-      .when('/teams/:teamName', {
-        templateUrl: 'views/team-show.html',
-        controller: 'TeamCtrl'
+      .when('/people', {
+        templateUrl: 'views/person-search.html',
+        controller: 'PersonSearchCtrl'
       })
-      .when('/players/:playerId', {
-        templateUrl: 'views/player-show.html',
-        controller: 'PlayerCtrl'
+      .when('/people/:personId', {
+        templateUrl: 'views/person-show.html',
+        controller: 'PersonCtrl'
       })
       .otherwise({
         redirectTo: '/'

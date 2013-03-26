@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('githubleagueClientApp')
-  .controller('TeamsCtrl', function ($scope) {
+  .controller('ReposIndexCtrl', function ($scope, $routeParams) {
     $scope.teams = [
       {
         'name': 'HTML5 Badoingadoings',
