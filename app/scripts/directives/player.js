@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 angular.module('githubleagueClientApp')
   .directive('player', function () {
@@ -10,6 +10,7 @@ angular.module('githubleagueClientApp')
         function bubbleChart(data) {
           var max_amount;
           this.data = data;
+          // console.log(data);
           this.width = $(".hero-unit").width();
           this.height = 600;
           // this.tooltip = CustomTooltip("gates_tooltip", 240);
@@ -17,7 +18,7 @@ angular.module('githubleagueClientApp')
             x: this.width / 2,
             y: this.height / 2
           };
-          this.year_centers = {
+          this.attributeCenters = {
             "2008": {
               x: this.width / 3,
               y: this.height / 2
@@ -89,8 +90,6 @@ angular.module('githubleagueClientApp')
           });
         };
 
-
-
         bubbleChart.prototype.charge = function(d) {
           return -Math.pow(d.radius, 2.0) / 8;
         };
@@ -119,6 +118,27 @@ angular.module('githubleagueClientApp')
             return d.y = d.y + (that.center.y - d.y) * (that.damper + 0.02) * alpha;
           };
         };
+
+        bubbleChart.prototype.displayByAttribute = function() {
+          var that = this;
+          this.force.gravity(this.layout_gravity).charge(this.charge).friction(0.9).on('tick', function(e) {
+            return that.circles.each(that.moveTowardsAttribute(e.alpha)).attr('cx', function(d) {
+              return d.x;
+            }).attr('cy', function(d) {
+              return d.y;
+            });
+          });
+          this.force.start();
+        };
+
+        // bubbleChart.prototype.moveTowardsAttribute = function(alpha) {
+        //   var that = this;
+        //   return function(d) {
+        //     var pointOnScreen;
+        //     pointOnScreen = that.attributeCenters[d.year];
+        //     d.x += (pointOnScreen.x - )
+        //   };
+        // };
 
         var renderChart = function(csv) {
           // console.log(csv);
