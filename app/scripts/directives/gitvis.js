@@ -20,8 +20,8 @@ angular.module('githubleagueClientApp')
           // instead. The aspect ratio of an equirectangular map is 2:1, so that's why
           // our height is half of our width.
 
-          var projection = d3.geo.equirectangular().scale((width/600)*600).translate([width/2, height/2]);
-          var path = d3.geo.path().projection(projection);
+          var projector = d3.geo.equirectangular().scale((width/600)*600).translate([width/2, height/2]);
+          var path = d3.geo.path().projection(projector);
           d3.json('../geodata/world-map.json', function(collection) {
             map.selectAll('path').data(collection.features).enter()
               .append('path')
@@ -43,10 +43,10 @@ angular.module('githubleagueClientApp')
                .append('circle')
                .attr('cx', function(d) {
                  // if (isNaN(mercatorize(d.lon, d.lat)[0])) console.log ("Bad: ",d);
-                 return projection([d.lon, d.lat])[0]; //projection(d.lon, d.lat)[0];
+                 return projector([d.lon, d.lat])[0]; //projection(d.lon, d.lat)[0];
                })
                .attr('cy', function(d) {
-                 return projection([d.lon, d.lat])[1]; //projection(d.lon, d.lat)[1];
+                 return projector([d.lon, d.lat])[1]; //projection(d.lon, d.lat)[1];
                })
                .attr('r', function(d) {
                  return 3;
