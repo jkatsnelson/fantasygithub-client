@@ -14,7 +14,7 @@ angular.module('githubleagueClientApp')
         'first': 'mike',
         'last': 'ronson'
       },
-      { 
+      {
         'id': '8',
         'first': 'bobby',
         'last': 'strings'

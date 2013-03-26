@@ -3,15 +3,15 @@
 angular.module('githubleagueClientApp')
   .directive('gitvis', function () {
     return {
-      template: "<div id='mapContainer'></div>",
+      template: '<div id="mapContainer"></div>',
       restrict: 'E',
       val: '=',
       link: function postLink(scope, element, attrs) {
         // element.text('this is the gitvis directive');
         function draw(ht) {
-          $("#mapContainer").html("<svg id='map' xmlns='http://www.w3.org/2000/svg' width='100%' height='" + ht + "'></svg>");
-          var map = d3.select("#map");
-          var width = $("#map").parent().width();
+          $('#mapContainer').html('<svg id="map" xmlns="http://www.w3.org/2000/svg" width="100%" height="' + ht + '"></svg>');
+          var map = d3.select('#map');
+          var width = $('#map').parent().width();
           var height = ht;
 
           // I discovered that the unscaled equirectangular map is 640x360. Thus, we
@@ -20,46 +20,44 @@ angular.module('githubleagueClientApp')
           // instead. The aspect ratio of an equirectangular map is 2:1, so that's why
           // our height is half of our width.
 
-          var projection = d3.geo.equirectangular().scale((width/600)*600).translate([width/2, height/2]);
+          var projection = d3.geo.equirectangular().scale((width / 600) * 600).translate([width / 2, height / 2]);
           var path = d3.geo.path().projection(projection);
-          d3.json('../geodata/world-map.json', function(collection) {
+          d3.json('../geodata/world-map.json', function (collection) {
             map.selectAll('path').data(collection.features).enter()
               .append('path')
               .attr('d', path)
-              .attr('fill', "gray")
-              .attr("width", width)
-              .attr("height", width/2)
+              .attr('fill', 'gray')
+              .attr('width', width)
+              .attr('height', width / 2);
 
             var dataset = locations;
             for (var i = 0; i < dataset.length; i++) {
               if ((!dataset[i].lat) || (!dataset[i].lon)) {
                 console.log('removing', dataset[i]);
-                dataset.splice(i,1);
+                dataset.splice(i, 1);
               }
             }
             map.selectAll('circle')
                .data(dataset)
                .enter()
                .append('circle')
-               .attr('cx', function(d) {
+               .attr('cx', function (d) {
                  // if (isNaN(mercatorize(d.lon, d.lat)[0])) console.log ("Bad: ",d);
                  return projection([d.lon, d.lat])[0]; //projection(d.lon, d.lat)[0];
                })
-               .attr('cy', function(d) {
+               .attr('cy', function (d) {
                  return projection([d.lon, d.lat])[1]; //projection(d.lon, d.lat)[1];
                })
-               .attr('r', function(d) {
+               .attr('r', function (d) {
                  return 3;
                })
-               .attr('city', function(d) {
-                  return d.city;
+               .attr('city', function (d) {
+                 return d.city;
                });
 
           });
         }
-        draw($("#mapContainer").width()/2);
-
-
+        draw($('#mapContainer').width() / 2);
       }
     };
   });
