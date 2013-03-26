@@ -10,7 +10,7 @@ angular.module('githubleagueClientApp')
         function bubbleChart(data) {
           var max_amount;
           this.data = data;
-          this.width = 940;
+          this.width = $(".hero-unit").width();
           this.height = 600;
           // this.tooltip = CustomTooltip("gates_tooltip", 240);
           this.center = {
@@ -41,7 +41,7 @@ angular.module('githubleagueClientApp')
           max_amount = d3.max(this.data, function(d) {
             return parseInt(d.total_amount);
           });
-          this.radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 35]);
+          this.radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([5, 35]);
           this.create_nodes();
           this.create_vis();
           console.log('in');
