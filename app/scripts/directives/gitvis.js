@@ -33,7 +33,7 @@ angular.module('githubleagueClientApp')
             var dataset = locations;
             for (var i = 0; i < dataset.length; i++) {
               if ((!dataset[i].lat) || (!dataset[i].lon)) {
-                console.log('removing', dataset[i]);
+                // console.log('removing', dataset[i]);
                 dataset.splice(i,1);
               }
             }
