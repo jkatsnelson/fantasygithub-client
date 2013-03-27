@@ -16,36 +16,24 @@ angular.module('githubleagueClientApp')
           var viewType = event.target.className;
           if (viewType === 'showGroup') {
             var renderChart = function(csv) {
-              // bc = null;
-              // bc = new bubbleChart(csv);
-              // bc.start();
               bc.display_group_all();
-              // bc.displayByAttribute();
               return bc;
             };
-            d3.csv("../geodata/fakeuser.csv", renderChart)
+            d3.json("../geodata/fakeuser.json", renderChart)
           }
           if (viewType === 'showSeparate') {
             console.log(bc);
-            // bc = null;
             var renderChart = function(csv) {
-              // bc = null;
-              // bc = new bubbleChart(csv);
-              // bc.start();
-              // bc.display_group_all();
               bc.displayByAttribute();
               return bc;
             };
-            d3.csv("../geodata/fakeuser.csv", renderChart)
+            d3.json("../geodata/fakeuser.json", renderChart)
           }
         });
 
-
         function bubbleChart(data) {
           var max_amount;
-          // this.showType = pageShowType;
           this.data = data;
-          // console.log(data);
           this.width = $(".hero-unit").width();
           this.height = 600;
           // this.tooltip = CustomTooltip("gates_tooltip", 240);
@@ -77,7 +65,7 @@ angular.module('githubleagueClientApp')
           max_amount = d3.max(this.data, function(d) {
             return parseInt(d.total_amount);
           });
-          this.radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([5, 35]);
+          this.radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 25]);
           this.create_nodes();
           this.create_vis();
           console.log('in');
@@ -176,22 +164,13 @@ angular.module('githubleagueClientApp')
           };
         };
 
-          // chart.start();
-          // if (chart.showType === 'group') {
-          //   return chart.display_group_all();
-          // } else if (chart.showType === 'separate') {
-          //   return chart.displayByAttribute()
-          // }
-
         var renderChart = function(csv) {
           bc = new bubbleChart(csv);
           bc.start();
           bc.display_group_all();
-          // bc.displayByAttribute();
           return bc;
         };
-        d3.csv("../geodata/fakeuser.csv", renderChart)
-
+        d3.json("../geodata/fakeuser.json", renderChart)
 
       }
     };

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('githubleagueClientApp')
-  .controller('PersonSearchCtrl', function ($scope, $routeParams) {
+  .controller('PersonSearchCtrl', function ($scope, $routeParams, $http) {
     // $scope.teamName = $routeParams.teamName;
     $scope.people = [
       {
@@ -21,7 +21,13 @@ angular.module('githubleagueClientApp')
       }
     ];
 
-    $scope.searchForUser = function() {
-      console.log('will search now');
+    $scope.searchForUser = function(gitUser) {
+      $http({method: 'GET', url: '/query/'+ gitUser }).
+        success(function(data, status, headers, config) {
+          console.log(gitUser);
+        }).
+        error(function(data, status, headers, config) {
+          console.log(gitUser);
+        });
     }
   });
