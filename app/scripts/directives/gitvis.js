@@ -37,10 +37,17 @@ angular.module('githubleagueClientApp')
                 dataset.splice(i,1);
               }
             }
+
             map.selectAll('circle')
                .data(dataset)
                .enter()
                .append('circle')
+               .transition()
+               .attr('cx', width/2)
+               .duration(0)
+               .transition()
+               .duration(function(d,i) { return i * 300;})
+               .delay(50)
                .attr('cx', function(d) {
                  // if (isNaN(mercatorize(d.lon, d.lat)[0])) console.log ("Bad: ",d);
                  return projection([d.lon, d.lat])[0]; //projection(d.lon, d.lat)[0];
@@ -58,8 +65,6 @@ angular.module('githubleagueClientApp')
           });
         }
         draw($("#mapContainer").width()/2);
-
-
       }
     };
   });
