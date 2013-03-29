@@ -42,14 +42,13 @@ angular.module('githubleagueClientApp')
                .data(dataset)
                .enter()
                .append('circle')
-               .transition()
+               .transition().ease("linear")
                .attr('cx', width/2)
-               .duration(0)
-               .transition()
-               .duration(function(d,i) { return i * 300;})
-               .delay(50)
+               .duration()
+               .transition().ease("linear")
+               .delay(function(d,i) { return (i+1) * 150; })
+               .duration(function(d, i) { return 150; })
                .attr('cx', function(d) {
-                 // if (isNaN(mercatorize(d.lon, d.lat)[0])) console.log ("Bad: ",d);
                  return projection([d.lon, d.lat])[0]; //projection(d.lon, d.lat)[0];
                })
                .attr('cy', function(d) {
@@ -60,11 +59,22 @@ angular.module('githubleagueClientApp')
                })
                .attr('city', function(d) {
                   return d.city;
-               });
+               })
+               .duration(function (d,i) { return 150; })
+               .transition().ease("linear")
+               .delay(function(d, i) { return (i+2) * 150 - 10; })
+               .duration()
+               .attr('fill', 'red')
+               .attr('r', 6)
+               .transition().ease("linear")
+               .delay(function(d, i) { return (i+2) * 150 + 30; })
+               .attr('fill', 'black')
+               .attr('r', 3)
 
           });
         }
         draw($("#mapContainer").width()/2);
+
       }
     };
   });
